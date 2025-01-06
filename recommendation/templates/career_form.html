@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="checkbox"],
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output, #message, #checkbox-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+            display: none;
+        }
+        #search {
+            margin-bottom: 10px;
+        }
+        label {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function showCheckboxes() {
+            document.getElementById("checkbox-container").style.display = "block";
+            document.getElementById("output").style.display = "block"; // Show the output message
+            document.getElementById("message").style.display = "block"; // Show the message prompting user
+        }
+
+        function filterOptions() {
+            const searchInput = document.getElementById("search").value.toLowerCase();
+            const checkboxes = document.querySelectorAll(".career-option");
+            checkboxes.forEach(checkbox => {
+                const label = checkbox.nextElementSibling.innerText.toLowerCase();
+                if (label.includes(searchInput)) {
+                    checkbox.parentElement.style.display = "";
+                } else {
+                    checkbox.parentElement.style.display = "none";
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+
+<h1>Career Selector</h1>
+
+<form action="/pred" method="POST">
+    <!-- Input fields for prediction -->
+    <label>Gender:</label>
+    <input type="text" name="gender">
+
+    <label>Part-time Job:</label>
+    <input type="checkbox" name="part_time_job" value="true">
+
+    <label>Absence Days:</label>
+    <input type="number" name="absence_days">
+
+    <label>Extracurricular Activities:</label>
+    <input type="checkbox" name="extracurricular_activities" value="true">
+
+    <label>Weekly Self-Study Hours:</label>
+    <input type="number" name="weekly_self_study_hours">
+
+    <label>Math Score:</label>
+    <input type="number" name="math_score">
+
+    <label>History Score:</label>
+    <input type="number" name="history_score">
+
+    <label>Physics Score:</label>
+    <input type="number" name="physics_score">
+
+    <label>Chemistry Score:</label>
+    <input type="number" name="chemistry_score">
+
+    <label>Biology Score:</label>
+    <input type="number" name="biology_score">
+
+    <label>English Score:</label>
+    <input type="number" name="english_score">
+
+    <label>Geography Score:</label>
+    <input type="number" name="geography_score">
+
+    <label>Total Score:</label>
+    <input type="number" name="total_score">
+
+    <label>Average Score:</label>
+    <input type="number" name="average_score">
+
+    <button type="submit">Predict</button>
+</form>
+
+<div id="output">
+    <h2>Your Suggested Careers:</h2>
+    <ul id="career-list"></ul>
+</div>
+
+<div id="message">
+    <p>Select the career options you are interested in:</p>
+</div>
+
+<div id="checkbox-container">
+    <h2>Select Your Career Options</h2>
+    <input type="text" id="search" placeholder="Search for a career..." onkeyup="filterOptions()">
+    <form action="/submit_career" method="POST">
+        <div>
+            <input type="checkbox" id="accountant" class="career-option" name="careers" value="Accountant">
+            <label for="accountant">Accountant</label>
+        </div>
+        <div>
+            <input type="checkbox" id="artist" class="career-option" name="careers" value="Artist">
+            <label for="artist">Artist</label>
+        </div>
+        <div>
+            <input type="checkbox" id="banker" class="career-option" name="careers" value="Banker">
+            <label for="banker">Banker</label>
+        </div>
+        <div>
+            <input type="checkbox" id="business_owner" class="career-option" name="careers" value="Business Owner">
+            <label for="business_owner">Business Owner</label>
+        </div>
+        <div>
+            <input type="checkbox" id="construction_engineer" class="career-option" name="careers" value="Construction Engineer">
+            <label for="construction_engineer">Construction Engineer</label>
+        </div>
+        <div>
+            <input type="checkbox" id="designer" class="career-option" name="careers" value="Designer">
+            <label for="designer">Designer</label>
+        </div>
+        <div>
+            <input type="checkbox" id="doctor" class="career-option" name="careers" value="Doctor">
+            <label for="doctor">Doctor</label>
+        </div>
+        <div>
+            <input type="checkbox" id="game_developer" class="career-option" name="careers" value="Game Developer">
+            <label for="game_developer">Game Developer</label>
+        </div>
+        <div>
+            <input type="checkbox" id="government_officer" class="career-option" name="careers" value="Government Officer">
+            <label for="government_officer">Government Officer</label>
+        </div>
+        <div>
+            <input type="checkbox" id="lawyer" class="career-option" name="careers" value="Lawyer">
+            <label for="lawyer">Lawyer</label>
+        </div>
+        <div>
+            <input type="checkbox" id="real_estate_developer" class="career-option" name="careers" value="Real Estate Developer">
+            <label for="real_estate_developer">Real Estate Developer</label>
+        </div>
+        <div>
+            <input type="checkbox" id="scientist" class="career-option" name="careers" value="Scientist">
+            <label for="scientist">Scientist</label>
+        </div>
+        <div>
+            <input type="checkbox" id="software_engineer" class="career-option" name="careers" value="Software Engineer">
+            <label for="software_engineer">Software Engineer</label>
+        </div>
+        <div>
+            <input type="checkbox" id="stock_investor" class="career-option" name="careers" value="Stock Investor">
+            <label for="stock_investor">Stock Investor</label>
+        </div>
+        <div>
+            <input type="checkbox" id="teacher" class="career-option" name="careers" value="Teacher">
+            <label for="teacher">Teacher</label>
+        </div>
+        <div>
+            <input type="checkbox" id="writer" class="career-option" name="careers" value="Writer">
+            <label for="writer">Writer</label>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    // This function will be called after the predictions are made to display the career options
+    function displayCareerOptions(careers) {
+        const careerList = document.getElementById("career-list");
+        careerList.innerHTML = ''; // Clear previous list
+        careers.forEach(career => {
+            const li = document.createElement("li");
+            li.innerText = `${career.name} - Probability: ${career.probability.toFixed(2)}`;
+            careerList.appendChild(li);
+        });
+        document.getElementById("output").style.display = "block"; // Show the output message
+        document.getElementById("checkbox-container").style.display = "block"; // Show the checkbox container
+        document.getElementById("message").style.display = "block"; // Show the message prompting user
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career FormS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .header {
+            background: orangered;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .form-container {
+            padding: 30px 20px;
+        }
+
+        .form-box {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin: 6px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-group input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .form-group input[type="number"]::-webkit-outer-spin-button,
+        .form-group input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-group input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .form-group input[type="number"]::-webkit-outer-spin-button,
+        .form-group input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background-color: orangered;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #005bb5;
+        }
+    </style>
+    <script>
+        function calculateScores() {
+            var mathScore = parseFloat(document.getElementById("math_score").value) || 0;
+            var historyScore = parseFloat(document.getElementById("history_score").value) || 0;
+            var physicsScore = parseFloat(document.getElementById("physics_score").value) || 0;
+            var chemistryScore = parseFloat(document.getElementById("chemistry_score").value) || 0;
+            var biologyScore = parseFloat(document.getElementById("biology_score").value) || 0;
+            var englishScore = parseFloat(document.getElementById("english_score").value) || 0;
+            var geographyScore = parseFloat(document.getElementById("geography_score").value) || 0;
+
+            var totalScore = mathScore + historyScore + physicsScore + chemistryScore + biologyScore + englishScore + geographyScore;
+            var averageScore = totalScore / 7;
+
+            document.getElementById("total_score").value = totalScore.toFixed(2);
+            document.getElementById("average_score").value = averageScore.toFixed(2);
+        }
+
+        function validateForm() {
+            var form = document.forms[0];
+            for (var i = 0; i < form.elements.length; i++) {
+                if (form.elements[i].hasAttribute("required") && form.elements[i].value === "") {
+                    alert("Please fill out this form and complete all fields before submitting.");
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="header">
+            <h1>Career Form</h1>
+        </div>
+        <div class="form-container">
+            <form method="post" action="/pred/" onsubmit="return validateForm()">
+                {% csrf_token %}
+                <div class="form-box">
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="part_time_job">Work Experience</label>
+                        <select id="part_time_job" name="part_time_job" required>
+                            <option value="">Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-box">
+                    <div class="form-group">
+                        <label for="absence_days">No. of days Absent</label>
+                        <input type="number" id="absence_days" name="absence_days" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="extracurricular_activities">Extracurricular Activities</label>
+                        <select id="extracurricular_activities" name="extracurricular_activities" required>
+                            <option value="">Select</option>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-box">
+                    <div class="form-group">
+                        <label for="weekly_self_study_hours">Weekly Self-Study Hours</label>
+                        <input type="number" id="weekly_self_study_hours" name="weekly_self_study_hours" required>
+                    </div>
+                </div>
+                <div class="form-box">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="math_score">Math Score</label>
+                            <input type="number" id="math_score" name="math_score" onchange="calculateScores()"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="history_score">History Score</label>
+                            <input type="number" id="history_score" name="history_score" onchange="calculateScores()"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="physics_score">Physics Score</label>
+                            <input type="number" id="physics_score" name="physics_score" onchange="calculateScores()"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="chemistry_score">Chemistry Score</label>
+                            <input type="number" id="chemistry_score" name="chemistry_score"
+                                onchange="calculateScores()" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="biology_score">Biology Score</label>
+                            <input type="number" id="biology_score" name="biology_score" onchange="calculateScores()"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="english_score">English Score</label>
+                            <input type="number" id="english_score" name="english_score" onchange="calculateScores()"
+                                required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="geography_score">Geography Score</label>
+                            <input type="number" id="geography_score" name="geography_score"
+                                onchange="calculateScores()" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="total_score">Total Score</label>
+                            <input type="number" id="total_score" name="total_score" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="average_score">Average Score</label>
+                            <input type="number" id="average_score" name="average_score" readonly>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>
